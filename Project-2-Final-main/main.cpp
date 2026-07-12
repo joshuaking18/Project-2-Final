@@ -31,7 +31,7 @@ int main() {
         if (command == 1) {
             cout<<"Loading something?"<<endl;
 
-            loadData("C:\\Users\\meepe\\Downloads\\Project-2-Final-main\\Project-2-Final-main\\Train_Dst_NoAuction_DecPre_CF_7.txt", orders);
+            loadData("C:\\Users\\meepe\\Downloads\\Project-2-Final-main\\Train_Dst_NoAuction_DecPre_CF_7.txt", orders);
             cout << orders.size();
             for (const auto& order : orders) {
                 if (order.type == 'B') {
@@ -51,9 +51,7 @@ int main() {
             makeMinHeap(min);
             compare(max, min);
         }else if(command == 3) {
-            cout<<"Loading Hash-Table"<<endl;
-            HashTable commandThree;
-           commandThree.matchOrders(orders);
+
         }else if(command == 4) {
             cout<<"Loading Hash-Table..."<<endl;
         }else if(command == 5) {
