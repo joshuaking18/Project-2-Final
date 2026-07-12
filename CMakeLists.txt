@@ -8,6 +8,4 @@ include_directories(Project-2-Final-main)
 add_executable(Project_2_Final_main
         Project-2-Final-main/functions.cpp
         Project-2-Final-main/functions.h
-        Project-2-Final-main/hash.cpp
-        Project-2-Final-main/heap.cpp
         Project-2-Final-main/main.cpp)

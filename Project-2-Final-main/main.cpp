@@ -13,6 +13,8 @@ int main() {
     vector<Order> orders;
     vector<Order> max;
     vector<Order> min;
+    Performance heap = {0.0,0};
+    Performance hash = {0.0,0};
 
     while (command != 5) {
         cout<<"======================================"<<endl;
@@ -45,15 +47,22 @@ int main() {
                            << " | Price: " << order.cost << std::endl;*/
              }
         }else if(command == 2) {
-            cout<<"Loading Hash-Table"<<endl;
+            cout<<"Loading Heap Comparison..."<<endl;
+            heap = executeHeap(orders);
 
-            makeMaxHeap(max);
-            makeMinHeap(min);
-            compare(max, min);
         }else if(command == 3) {
-
+            cout<<"Loading Hash Comparison..."<<endl;
+          hash  = executeHash(orders);
         }else if(command == 4) {
-            cout<<"Loading Hash-Table..."<<endl;
+            cout<<"Loading Report..."<<endl;
+            cout<<"======================================"<<endl;
+            cout<<"Metric            Heaps        Hash   "<<endl;
+            cout<<"--------------------------------------"<<endl;
+            cout<<"Time:             "            <<heap.time<<" ms"<<"        "<<hash.time<< "ms"<<endl;
+            cout<<"Memory:           "            <<heap.memory<<" bytes"<<"     "<<hash.memory<< " bytes"<<endl;
+            cout<<"======================================"<<endl;
+
+
         }else if(command == 5) {
             cout<<"Exiting..."<<endl;
             return 0;

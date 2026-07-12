@@ -2,6 +2,8 @@
 // Created by meepe on 7/9/2026.
 //
 #include "functions.h"
+
+#include <chrono>
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -137,3 +139,41 @@ void compare(vector<Order>& Buy, vector<Order>& Sell) {
     }
 }
 //push , pop are needed
+Performance executeHash(const vector<Order>& input) {
+    size_t initial = sizeof(HashTable);
+    size_t dynamic = 0;
+    auto start = chrono::high_resolution_clock::now();
+    HashTable hashtable;
+    for (auto& order : input) {
+        hashtable.insert(order);
+        dynamic += sizeof(Order) + 16;
+    }
+    hashtable.compareHash();
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> length = end - start;
+    size_t totalBytes = initial + dynamic;
+    return Performance{length.count(), totalBytes};
+
+}
+Performance executeHeap (const vector<Order>& input) {
+    size_t initial = sizeof(vector<Order>) * 2;
+    size_t dynamic = 0;
+    auto start = chrono::high_resolution_clock::now();
+    vector<Order> buy;
+    vector<Order> sell;
+    for (auto& order : input) {
+       if (order.type == 'B') {
+           buy.push_back(order);
+       }else if (order.type == 'S') {
+           sell.push_back(order);
+       }
+    }
+    makeMaxHeap(buy);
+    makeMinHeap(sell);
+    dynamic = (buy.capacity() + sell.capacity()) * sizeof(Order);
+    compare(buy, sell);
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> length = end - start;
+    size_t totalBytes = initial + dynamic;
+    return Performance{length.count(), totalBytes};
+}
